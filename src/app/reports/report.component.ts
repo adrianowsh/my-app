@@ -23,7 +23,7 @@ interface Usuario {
       <!-- Main Content -->
       <main class="flex-1 p-8 bg-gray-50">
         <div class="flex justify-between items-center mb-6">
-          <h1 class="text-2xl font-medium">Relatórios > Lista de usuários</h1>
+          <h1 class="text-2xl font-medium text-gray-500">Relatórios > Lista de usuários</h1>
           <button 
             class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
             (click)="imprimirRelatorio()"
@@ -33,17 +33,17 @@ interface Usuario {
         </div>
 
         <!-- Users Table -->
-        <div class="bg-white rounded-lg shadow-sm">
+        <div class="bg-white rounded-lg shadow-sm h-screen">
           <table class="w-full">
             <thead>
-              <tr class="text-left border-b">
+              <tr class="text-left border-b border-gray-200">
                 <th class="px-6 py-3 text-gray-600">NOME</th>
                 <th class="px-6 py-3 text-gray-600">E-MAIL</th>
                 <th class="px-6 py-3 text-gray-600">STATUS</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let usuario of usuarios" class="border-b hover:bg-gray-50">
+              <tr *ngFor="let usuario of usuarios" class="border-b border-gray-200 hover:bg-gray-50">
                 <td class="px-6 py-4">{{usuario.nome}}</td>
                 <td class="px-6 py-4">{{usuario.email}}</td>
                 <td class="px-6 py-4">

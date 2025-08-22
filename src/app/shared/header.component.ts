@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   template: `
-    <header class="bg-white border-b px-4 py-3 flex justify-between items-center">
+    <header class="bg-white border-b border-gray-300  px-4 py-3 flex justify-between items-center">
       <div class="flex items-center space-x-2">
         <span class="font-bold text-xl">OC</span>
         <span class="text-gray-600">Operação Curiosidade</span>

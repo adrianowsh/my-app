@@ -17,7 +17,7 @@ import { SidebarComponent } from '../shared/sidebar.component';
 
       <!-- Main Content -->
       <main class="flex-1 p-8 bg-gray-50">
-        <div class="max-w-4xl mx-auto">
+        <div class="w-full">
           <div class="flex justify-between items-center mb-6">
             <h1 class="text-2xl font-medium">Novo cadastro</h1>
             <div>
@@ -42,7 +42,7 @@ import { SidebarComponent } from '../shared/sidebar.component';
                   <input 
                     type="text" 
                     formControlName="nome"
-                    class="w-full p-2 border rounded focus:outline-none focus:border-green-500"
+                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500"
                   >
                 </div>
                 <div>
@@ -50,7 +50,7 @@ import { SidebarComponent } from '../shared/sidebar.component';
                   <input 
                     type="number" 
                     formControlName="idade"
-                    class="w-full p-2 border rounded focus:outline-none focus:border-green-500"
+                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500"
                   >
                 </div>
                 <div>
@@ -58,7 +58,7 @@ import { SidebarComponent } from '../shared/sidebar.component';
                   <input 
                     type="email" 
                     formControlName="email"
-                    class="w-full p-2 border rounded focus:outline-none focus:border-green-500"
+                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500"
                   >
                 </div>
                 <div class="col-span-2">
@@ -66,7 +66,7 @@ import { SidebarComponent } from '../shared/sidebar.component';
                   <input 
                     type="text" 
                     formControlName="endereco"
-                    class="w-full p-2 border rounded focus:outline-none focus:border-green-500"
+                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500"
                   >
                 </div>
                 <div class="col-span-2">
@@ -74,7 +74,7 @@ import { SidebarComponent } from '../shared/sidebar.component';
                   <textarea 
                     formControlName="outrasInformacoes"
                     rows="3"
-                    class="w-full p-2 border rounded focus:outline-none focus:border-green-500"
+                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500"
                   ></textarea>
                 </div>
               </div>
@@ -86,7 +86,7 @@ import { SidebarComponent } from '../shared/sidebar.component';
               <textarea 
                 formControlName="interesses"
                 rows="3"
-                class="w-full p-2 border rounded focus:outline-none focus:border-green-500"
+                class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500"
               ></textarea>
             </div>
 
@@ -96,7 +96,7 @@ import { SidebarComponent } from '../shared/sidebar.component';
               <textarea 
                 formControlName="sentimentos"
                 rows="3"
-                class="w-full p-2 border rounded focus:outline-none focus:border-green-500"
+                class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500"
               ></textarea>
             </div>
 
@@ -106,7 +106,7 @@ import { SidebarComponent } from '../shared/sidebar.component';
               <textarea 
                 formControlName="valores"
                 rows="3"
-                class="w-full p-2 border rounded focus:outline-none focus:border-green-500"
+                class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500"
               ></textarea>
             </div>
 
@@ -126,8 +126,22 @@ import { SidebarComponent } from '../shared/sidebar.component';
   `,
   styles: [`
     :host {
-      display: block;
+      display: flex;
+      flex-direction: column;
       height: 100vh;
+    }
+    
+    .flex {
+      flex: 1;
+      display: flex;
+    }
+    
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      width: 100%;
     }
   `]
 })

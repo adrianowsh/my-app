@@ -23,7 +23,7 @@ interface Cadastro {
       <!-- Main Content -->
       <main class="flex-1 p-8 bg-gray-50 h-full">
         <!-- Cards -->
-        <div class="grid grid-cols-3 gap-6 mb-8">
+        <div class="grid grid-cols-3 gap-6 mb-8 w-full">
           <div class="bg-white p-6 rounded-lg shadow-sm">
             <div class="text-6xl font-light text-blue-700">100</div>
             <div class="text-gray-600 mt-2">Total de cadastros</div>
@@ -31,7 +31,7 @@ interface Cadastro {
           
           <div class="bg-white p-6 rounded-lg shadow-sm">
             <div class="text-6xl font-light text-green-600">10</div>
-            <div class="text-gray-600 mt-2">Cadastros no último mês</div>
+            <div class="text-gray-600 mt-2 ">Cadastros no último mês</div>
           </div>
           
           <div class="bg-white p-6 rounded-lg shadow-sm">
@@ -41,9 +41,9 @@ interface Cadastro {
         </div>
 
         <!-- Recent Records Table -->
-        <div class="bg-white rounded-lg shadow-sm">
+        <div class="bg-white rounded-lg shadow-sm w-full">
           <div class="p-6">
-            <h2 class="text-lg font-medium mb-4">Últimos cadastros</h2>
+            <h2 class="text-lg font-medium mb-4 text-gray-500">Últimos cadastros</h2>
             <table class="w-full">
               <thead>
                 <tr class="text-left text-gray-600 border-b">
@@ -71,8 +71,24 @@ interface Cadastro {
   `,
   styles: [`
     :host {
-      display: block;
+      display: flex;
+      flex-direction: column;
       height: 100vh;
+    }
+    
+    .flex {
+      flex: 1;
+      display: flex;
+    }
+    
+    main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
+      width: 100%;
+      align-items: flex-start;
+      justify-content: flex-start;
     }
   `]
 })

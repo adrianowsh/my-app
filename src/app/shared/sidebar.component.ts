@@ -7,7 +7,7 @@ import { RouterModule } from '@angular/router';
   standalone: true,
   imports: [CommonModule, RouterModule],
   template: `
-    <aside class="w-64 bg-gray-50 border-r h-screen">
+    <aside class="w-64 bg-gray-100 border-r border-gray-300 h-full">
       <nav class="p-4 space-y-2">
         <a routerLink="/home" 
            class="flex items-center space-x-2 p-2 rounded hover:bg-gray-200"
