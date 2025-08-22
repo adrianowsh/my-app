@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  standalone: true,
+  imports: [CommonModule],
   template: `
-   <header class="bg-white border-b px-4 py-3 flex justify-between items-center">
+    <header class="bg-white border-b px-4 py-3 flex justify-between items-center">
       <div class="flex items-center space-x-2">
         <span class="font-bold text-xl">OC</span>
         <span class="text-gray-600">Operação Curiosidade</span>
@@ -23,9 +25,7 @@ import { Component } from '@angular/core';
         <button class="text-gray-600 hover:text-gray-800">SAIR</button>
       </div>
     </header>
-  `,
-  styles: ``
+  `
 })
 export class HeaderComponent {
-
 }

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { AsideComponent } from "../aside/aside";
-import { HeaderComponent } from "../header/header.component";
+import { HeaderComponent } from '../shared/header.component';
+import { SidebarComponent } from '../shared/sidebar.component';
 
 interface Usuario {
   nome: string;
@@ -13,14 +13,12 @@ interface Usuario {
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, RouterModule, AsideComponent, HeaderComponent],
+  imports: [CommonModule, RouterModule, HeaderComponent, SidebarComponent],
   template: `
-    <!-- Header -->
     <app-header></app-header>
 
-    <div class="flex h-screen">
-      <!-- Sidebar -->
-      <app-aside></app-aside>
+    <div class="flex">
+      <app-sidebar [activeRoute]="'register'"></app-sidebar>
       
       <!-- Main Content -->
       <main class="flex-1 p-8 bg-gray-50">

@@ -2,20 +2,18 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { AsideComponent } from "../aside/aside";
-import { HeaderComponent } from "../header/header.component";
+import { HeaderComponent } from '../shared/header.component';
+import { SidebarComponent } from '../shared/sidebar.component';
 
 @Component({
   selector: 'app-novo-cadastro',
   standalone: true,
-  imports: [CommonModule, RouterModule, ReactiveFormsModule, AsideComponent, HeaderComponent],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule, HeaderComponent, SidebarComponent],
   template: `
-    <!-- Header -->
     <app-header></app-header>
 
     <div class="flex">
-      <!-- Sidebar -->
-      <app-aside></app-aside>
+      <app-sidebar [activeRoute]="'register'"></app-sidebar>
 
       <!-- Main Content -->
       <main class="flex-1 p-8 bg-gray-50">
