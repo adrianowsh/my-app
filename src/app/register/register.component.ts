@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../shared/header.component';
@@ -60,10 +61,14 @@ import { User } from '../../services/users/user';
   `]
 })
 export class RegisterComponent {
-  
-  constructor(private userService: UserService) { }
-
   public users: User[] = [];
+
+  constructor(private userService: UserService, private router: Router) {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      this.router.navigate(['/login']);
+    }
+  }
 
   ngOnInit() {
     this.userService.obterUsuarios().subscribe({

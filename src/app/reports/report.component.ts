@@ -1,8 +1,11 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../shared/header.component';
 import { SidebarComponent } from '../shared/sidebar.component';
+import { User } from '../../services/users/user';
+import { UserService } from '../../services/users/user.service';
 
 interface Usuario {
   nome: string;
@@ -43,12 +46,12 @@ interface Usuario {
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let usuario of usuarios" class="border-b border-gray-200 hover:bg-gray-50">
-                <td class="px-6 py-4">{{usuario.nome}}</td>
-                <td class="px-6 py-4">{{usuario.email}}</td>
+              <tr *ngFor="let userReport of users" class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="px-6 py-4">{{userReport.name}}</td>
+                <td class="px-6 py-4">{{userReport.email}}</td>
                 <td class="px-6 py-4">
-                  <span [class]="usuario.status === 'Ativo' ? 'text-green-600' : 'text-gray-400'">
-                    {{usuario.status}}
+                  <span [class]="userReport.status === true ? 'text-green-600' : 'text-gray-400'">
+                    {{userReport.status}}
                   </span>
                 </td>
               </tr>
@@ -66,13 +69,26 @@ interface Usuario {
   `]
 })
 export class ReportsComponent {
-  usuarios: Usuario[] = [
-    { nome: 'Stephanie Nichols', email: 'stephanienichols@gmail.com', status: 'Ativo' },
-    { nome: 'Jeffrey Kane', email: 'jeffrey_kane@yahoo.com', status: 'Ativo' },
-    { nome: 'Darin Miller', email: 'darinmiller01@gmail.com', status: 'Ativo' },
-    { nome: 'Andrew Stuart', email: 'andrewstuart@outlook.com', status: 'Ativo' },
-    { nome: 'Valerie Aguilar', email: 'valerie_aguilar@gmal.com', status: 'Inativo' }
-  ];
+  public users: User[] = [];
+
+  constructor(private userService: UserService, private router: Router) {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      this.router.navigate(['/login']);
+    }
+  }
+
+  ngOnInit() {
+    this.userService.obterUsuarios().subscribe({
+      next: (data) => {
+        this.users = data;
+        console.log(this.users);
+      },
+      error: (err) => {
+        console.error('Error fetching users:', err);
+      }
+    });
+  }
 
   imprimirRelatorio() {
     window.print();

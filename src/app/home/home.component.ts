@@ -1,14 +1,11 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../shared/header.component';
 import { SidebarComponent } from '../shared/sidebar.component';
-
-interface Cadastro {
-  nome: string;
-  email: string;
-  status: 'Ativo' | 'Inativo';
-}
+import { User } from '../../services/users/user';
+import { UserService } from '../../services/users/user.service';
 
 @Component({
   selector: 'app-home',
@@ -25,17 +22,17 @@ interface Cadastro {
         <!-- Cards -->
         <div class="grid grid-cols-3 gap-6 mb-8 w-full">
           <div class="bg-white p-6 rounded-lg shadow-sm">
-            <div class="text-6xl font-light text-blue-700">100</div>
+            <div class="text-6xl font-light text-blue-700">{{users.length}}</div>
             <div class="text-gray-600 mt-2">Total de cadastros</div>
           </div>
           
           <div class="bg-white p-6 rounded-lg shadow-sm">
-            <div class="text-6xl font-light text-green-600">10</div>
+            <div class="text-6xl font-light text-green-600">{{users.length}}</div>
             <div class="text-gray-600 mt-2 ">Cadastros no último mês</div>
           </div>
           
           <div class="bg-white p-6 rounded-lg shadow-sm">
-            <div class="text-6xl font-light text-red-600">10</div>
+            <div class="text-6xl font-light text-red-600">{{inactiveUsersCount}}</div>
             <div class="text-gray-600 mt-2">Cadastros com pendência de revisão</div>
           </div>
         </div>
@@ -53,12 +50,12 @@ interface Cadastro {
                 </tr>
               </thead>
               <tbody>
-                <tr *ngFor="let cadastro of ultimosCadastros" class="border-b">
-                  <td class="py-3">{{cadastro.nome}}</td>
-                  <td class="py-3">{{cadastro.email}}</td>
+                <tr *ngFor="let userRegistered of users" class="border-b">
+                  <td class="py-3">{{userRegistered.name}}</td>
+                  <td class="py-3">{{userRegistered.email}}</td>
                   <td class="py-3">
-                    <span [class]="cadastro.status === 'Ativo' ? 'text-green-600' : 'text-gray-400'">
-                      {{cadastro.status}}
+                    <span [class]="userRegistered.status === true ? 'text-green-600' : 'text-gray-400'">
+                      {{userRegistered.status ? 'Ativo' : 'Inativo'}}
                     </span>
                   </td>
                 </tr>
@@ -93,11 +90,26 @@ interface Cadastro {
   `]
 })
 export class HomeComponent {
-  ultimosCadastros: Cadastro[] = [
-    { nome: 'Stephanie Nichols', email: 'stephanienichols@gmail.com', status: 'Ativo' },
-    { nome: 'Jeffrey Kane', email: 'jeffrey_kane@yahoo.com', status: 'Ativo' },
-    { nome: 'Darin Miller', email: 'darinmiller01@gmail.com', status: 'Ativo' },
-    { nome: 'Andrew Stuart', email: 'andrewstuart@outlook.com', status: 'Ativo' },
-    { nome: 'Valerie Aguilar', email: 'valerie_aguilar@gmal.com', status: 'Inativo' }
-  ];
+  public users: User[] = [];
+  public inactiveUsersCount: number = 0;
+
+  constructor(private userService: UserService, private router: Router) {
+    const token = localStorage.getItem('accessToken');
+    if (!token) {
+      this.router.navigate(['/login']);
+    }
+  }
+  ngOnInit() {
+    this.userService.obterUsuarios().subscribe({
+      next: (data) => {
+        this.users = data;
+        this.inactiveUsersCount = this.users.filter(user => user.status === false).length;
+        console.log(this.users);
+      },
+      error: (err) => {
+        console.error('Error fetching users:', err);
+      }
+    });
+   }
 }
+

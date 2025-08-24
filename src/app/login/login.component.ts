@@ -1,6 +1,9 @@
-import { Component } from '@angular/core'
+import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -54,17 +57,32 @@ import { CommonModule } from '@angular/common';
 export class LoginComponent {
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.loginForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required]   
     });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.loginForm.valid) {
-      console.log('Form submitted', this.loginForm.value);
-      // Aqui você implementará a lógica de autenticação
+      const loginData = this.loginForm.value;
+  this.http.post(`${environment.apiUrl}/v1/users/login`, loginData, { observe: 'response' })
+        .subscribe({
+          next: (response: any) => {
+            if (response.status === 200 && response.body?.accessToken) {
+              localStorage.setItem('accessToken', response.body.accessToken);
+              this.router.navigate(['/home']);
+            } else {
+              // Tratar caso de sucesso sem token
+              console.warn('Login realizado, mas sem accessToken retornado.');
+            }
+          },
+          error: (error: any) => {
+            console.error('Erro ao autenticar:', error);
+            // Exibir mensagem de erro para o usuário
+          }
+        });
     }
   }
 }
