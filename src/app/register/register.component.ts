@@ -3,13 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { HeaderComponent } from '../shared/header.component';
 import { SidebarComponent } from '../shared/sidebar.component';
-
-interface Usuario {
-  nome: string;
-  email: string;
-  status: 'Ativo' | 'Inativo';
-}
-
+import { UserService } from '../../services/users/user.service';
+import { User } from '../../services/users/user';
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -42,12 +37,12 @@ interface Usuario {
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let usuario of usuarios" class="border-b border-gray-200 hover:bg-gray-50">
-                <td class="px-6 py-4">{{usuario.nome}}</td>
-                <td class="px-6 py-4">{{usuario.email}}</td>
+              <tr *ngFor="let user of users" class="border-b border-gray-200 hover:bg-gray-50">
+                <td class="px-6 py-4">{{user.name}}</td>
+                <td class="px-6 py-4">{{user.email}}</td>
                 <td class="px-6 py-4">
-                  <span [class]="usuario.status === 'Ativo' ? 'text-green-600' : 'text-gray-400'">
-                    {{usuario.status}}
+                  <span [class]="user.status === true ? 'text-green-600' : 'text-gray-400'">
+                    {{user.status}}
                   </span>
                 </td>
               </tr>
@@ -65,11 +60,20 @@ interface Usuario {
   `]
 })
 export class RegisterComponent {
-  usuarios: Usuario[] = [
-    { nome: 'Stephanie Nichols', email: 'stephanienichols@gmail.com', status: 'Ativo' },
-    { nome: 'Jeffrey Kane', email: 'jeffrey_kane@yahoo.com', status: 'Ativo' },
-    { nome: 'Darin Miller', email: 'darinmiller01@gmail.com', status: 'Ativo' },
-    { nome: 'Andrew Stuart', email: 'andrewstuart@outlook.com', status: 'Ativo' },
-    { nome: 'Valerie Aguilar', email: 'valerie_aguilar@gmal.com', status: 'Inativo' }
-  ];
+  
+  constructor(private userService: UserService) { }
+
+  public users: User[] = [];
+
+  ngOnInit() {
+    this.userService.obterUsuarios().subscribe({
+      next: (data) => {
+        this.users = data;
+        console.log(this.users);
+      },
+      error: (err) => {
+        console.error('Error fetching users:', err);
+      }
+    });
+  }
 }
