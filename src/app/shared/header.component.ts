@@ -17,7 +17,7 @@ import { Router, RouterModule } from '@angular/router';
         <input 
           type="text" 
           placeholder="Pesquisar..." 
-          class="px-4 py-2 bg-gray-100 rounded-full focus:outline-none" 
+          class="px-4 py-2 bg-gray-100 rounded-full focus:outline-none cursor-pointer" 
           style="width: 34rem;"
         >
         <div class="w-10 h-10 bg-gray-300 rounded-full flex items-center justify-center">
@@ -26,13 +26,14 @@ import { Router, RouterModule } from '@angular/router';
           </svg>
         </div>
   <span class="text-gray-700">{{ userName }}</span>
-        <button class="text-gray-600 hover:text-gray-800">SAIR</button>
+  <button class="text-gray-600 hover:text-gray-800 cursor-pointer" (click)="logout()">SAIR</button>
       </div>
     </header>
   `
 })
 export class HeaderComponent {
- userName: string = '';
+  userName: string = '';
+
   constructor(private router: Router) {
     const token = localStorage.getItem('accessToken');
     if (!token) {
@@ -45,5 +46,10 @@ export class HeaderComponent {
     } catch (e) {
       this.userName = '';
     }
+  }
+
+  logout() {
+    localStorage.removeItem('accessToken');
+    this.router.navigate(['/login']);
   }
 }

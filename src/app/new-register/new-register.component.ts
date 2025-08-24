@@ -30,7 +30,7 @@ import { environment } from '../../environments/environment';
                   <input 
                     type="checkbox" 
                     formControlName="ativo"
-                    class="form-checkbox h-5 w-5 text-green-600"
+                    class="form-checkbox h-5 w-5 text-green-600 cursor-pointer"
                   >
                 </label>
               </div>
@@ -44,7 +44,7 @@ import { environment } from '../../environments/environment';
                   <input 
                     type="text" 
                     formControlName="name"
-                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500"
+                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500 cursor-pointer"
                   >
                   <span *ngIf="cadastroForm.get('name')?.invalid && cadastroForm.get('name')?.touched" class="text-red-500 text-xs">
                     Nome é obrigatório.
@@ -55,7 +55,7 @@ import { environment } from '../../environments/environment';
                   <input 
                     type="number" 
                     formControlName="idade"
-                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500"
+                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500 cursor-pointer"
                   >
                   <span *ngIf="cadastroForm.get('idade')?.invalid && cadastroForm.get('idade')?.touched" class="text-red-500 text-xs">
                     Idade é obrigatória e deve ser maior ou igual a 0.
@@ -66,7 +66,7 @@ import { environment } from '../../environments/environment';
                   <input 
                     type="email" 
                     formControlName="email"
-                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500"
+                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500 cursor-pointer"
                   >
                   <span *ngIf="cadastroForm.get('email')?.invalid && cadastroForm.get('email')?.touched" class="text-red-500 text-xs">
                     E-mail é obrigatório e deve ser válido.
@@ -77,7 +77,7 @@ import { environment } from '../../environments/environment';
                   <input 
                     type="text" 
                     formControlName="endereco"
-                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500"
+                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500 cursor-pointer"
                   >
                   <span *ngIf="cadastroForm.get('endereco')?.invalid && cadastroForm.get('endereco')?.touched" class="text-red-500 text-xs">
                     Endereço é obrigatório.
@@ -88,7 +88,7 @@ import { environment } from '../../environments/environment';
                   <textarea 
                     formControlName="outrasInformacoes"
                     rows="3"
-                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500"
+                    class="w-full p-2 border border-gray-100 bg-gray-100 rounded focus:outline-none focus:border-green-500 cursor-pointer"
                   ></textarea>
                   <span *ngIf="cadastroForm.get('outrasInformacoes')?.invalid && cadastroForm.get('outrasInformacoes')?.touched" class="text-red-500 text-xs">
                     Este campo é obrigatório.
@@ -143,7 +143,7 @@ import { environment } from '../../environments/environment';
             <div class="flex justify-center items-center">
               <button 
                 type="submit"
-                class="px-6 py-2 mb-10 w-60 bg-green-600 text-white rounded hover:bg-green-700 transition-colors"
+                class="px-6 py-2 mb-10 w-60 bg-green-600 text-white rounded hover:bg-green-700 transition-colors cursor-pointer"
               >
                 GRAVAR
               </button>

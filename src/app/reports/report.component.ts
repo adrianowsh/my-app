@@ -28,7 +28,7 @@ interface Usuario {
         <div class="flex justify-between items-center mb-6">
           <h1 class="text-2xl font-medium text-gray-500">Relatórios > Lista de usuários</h1>
           <button 
-            class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+            class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors cursor-pointer"
             (click)="imprimirRelatorio()"
           >
             IMPRIMIR

@@ -24,27 +24,34 @@ import { environment } from '../../environments/environment';
 
         <!-- Login Form -->
         <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="space-y-6">
+          <div *ngIf="errorMessage" class="text-red-500 text-center mb-4 text-sm">
+            {{ errorMessage }}
+          </div>
           <div>
             <input
               type="email"
               formControlName="email"
               placeholder="Email"
-              class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-black"
+              class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-black cursor-pointer"
             />
+            <span *ngIf="loginForm.get('email')?.invalid && loginForm.get('email')?.touched" class="text-red-500 text-xs">
+              Informe um email válido.
+            </span>
           </div>
-          
           <div>
             <input
               type="password"
               formControlName="password"
               placeholder="Senha"
-              class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-black"
+              class="w-full p-3 border border-gray-300 rounded focus:outline-none focus:border-black cursor-pointer"
             />
+            <span *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" class="text-red-500 text-xs">
+              Informe a senha.
+            </span>
           </div>
-
           <button
             type="submit"
-            class="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors"
+            class="w-full bg-black text-white py-3 rounded hover:bg-gray-800 transition-colors cursor-pointer"
           >
             ENTRAR
           </button>
@@ -56,6 +63,7 @@ import { environment } from '../../environments/environment';
 })
 export class LoginComponent {
   loginForm: FormGroup;
+  errorMessage: string = '';
 
   constructor(private fb: FormBuilder, private http: HttpClient, private router: Router) {
     this.loginForm = this.fb.group({
@@ -67,22 +75,24 @@ export class LoginComponent {
   onSubmit(): void {
     if (this.loginForm.valid) {
       const loginData = this.loginForm.value;
-  this.http.post(`${environment.apiUrl}/v1/users/login`, loginData, { observe: 'response' })
+      this.http.post(`${environment.apiUrl}/v1/users/login`, loginData, { observe: 'response' })
         .subscribe({
           next: (response: any) => {
             if (response.status === 200 && response.body?.accessToken) {
               localStorage.setItem('accessToken', response.body.accessToken);
               this.router.navigate(['/home']);
             } else {
-              // Tratar caso de sucesso sem token
               console.warn('Login realizado, mas sem accessToken retornado.');
             }
           },
           error: (error: any) => {
             console.error('Erro ao autenticar:', error);
-            // Exibir mensagem de erro para o usuário
           }
         });
+      this.errorMessage = '';
+    } else {
+      this.loginForm.markAllAsTouched();
+      this.errorMessage = 'Preencha email e senha corretamente.';
     }
   }
 }

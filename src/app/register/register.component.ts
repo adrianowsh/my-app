@@ -22,7 +22,7 @@ import { User } from '../../services/users/user';
           <h1 class="text-2xl font-medium text-gray-500">Cadastros</h1>
           <button 
             routerLink="/register/new"
-            class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors">
+            class="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition-colors cursor-pointer">
             NOVO CADASTRO
           </button>
         </div>
